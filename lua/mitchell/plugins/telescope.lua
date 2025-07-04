@@ -5,10 +5,23 @@ return {
     'nvim-tree/nvim-web-devicons',
     {
       "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      cond = vim.fn.executable("make") == 1,
-    }
-
+			build = function()
+				local os_name = vim.loop.os_uname().sysname
+				if os_name == "Windows_NT" then
+					local cmd = [[
+						powershell -NoProfile -Command "
+							Remove-Item -Recurse -Force .\build -ErrorAction SilentlyContinue;
+							cmake -S . -B build -G 'MinGW Makefiles' -DCMAKE_BUILD_TYPE=Release "-DCMAKE_POLICY_VERSION_MINIMUM=3.5";
+							cmake --build build --config Release
+						"
+					]]
+					print("Running build cmd:", cmd)
+					os.execute(cmd)
+				else
+					os.execute("make")
+				end
+			end
+		},
   },
   config = function()
     local telescope = require("telescope")
