@@ -30,6 +30,7 @@ return {
     telescope.setup({
       defaults = {
         path_display = { "smart" },
+				file_ignore_patterns = { "%.git/"},
         mapping = {
           i = {  -- Insert mode mappings
             ["<C-n>"] = require("telescope.actions").move_selection_next,
@@ -47,7 +48,7 @@ return {
 
     local keymap = vim.keymap
     local builtin = require('telescope.builtin')
-    keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+    keymap.set('n', '<leader>ff', function() builtin.find_files({hidden = true, no_ignore = true}) end, { desc = 'Telescope find files' })
     keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
     keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
     keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
