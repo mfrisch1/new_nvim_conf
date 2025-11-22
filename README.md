@@ -37,7 +37,7 @@ Use PowerShell with Administrator privileges.
      ```
 2. **Clone the config:**
    ```bash
-   git clone https://github.com/<your-user>/new_nvim_conf.git
+   git clone https://github.com/mfrisch1/new_nvim_conf.git
    ```
 3. **Place it in Neovim's config directory:**
    - **Linux/macOS:**
